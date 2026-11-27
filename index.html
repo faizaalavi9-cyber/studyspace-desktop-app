@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySpace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+    <aside class="sidebar">
+        <a class="logo" href="#">StudySpace<span>.</span></a>
+        <p class="menu-label">WORKSPACE</p>
+
+        <nav class="navigation">
+            <button class="nav-link active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+            <button class="nav-link" data-page="tasks"><span>☷</span> My Tasks</button>
+            <button class="nav-link" data-page="planner"><span>▦</span> Planner</button>
+            <button class="nav-link" data-page="exams"><span>✎</span> Exams</button>
+            <button class="nav-link" data-page="focus"><span>◷</span> Focus Timer</button>
+            <button class="nav-link" data-page="analytics"><span>▥</span> Analytics</button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button class="nav-link" data-page="settings"><span>⚙</span> Settings</button>
+            <div class="sidebar-note">
+                <span class="note-icon">✦</span>
+                <p>A little progress<br>every day adds up.</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow" id="pageEyebrow">YOUR PERSONAL STUDY SPACE</p>
+                <h1 id="pageTitle">Welcome back.</h1>
+                <p class="subtitle" id="pageSubtitle">Make today count. One task at a time.</p>
+            </div>
+            <div class="date-display">
+                <span class="date-icon">◷</span>
+                <span id="todayDate"></span>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="page active" id="dashboard">
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <div class="stat-top"><span>Tasks completed</span><span class="stat-icon">✓</span></div>
+                    <h2 id="completedCount">0 <small>/ 0</small></h2>
+                    <p class="stat-caption">Your daily progress</p>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-top"><span>Upcoming exams</span><span class="stat-icon">✎</span></div>
+                    <h2 id="examCount">0</h2>
+                    <p class="stat-caption">Exams still ahead</p>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-top"><span>Focus sessions</span><span class="stat-icon">◷</span></div>
+                    <h2 id="focusCount">0</h2>
+                    <p class="stat-caption">Sessions completed</p>
+                </article>
+            </div>
+
+            <div class="dashboard-grid">
+                <section class="panel tasks-panel">
+                    <div class="section-heading">
+                        <div><p class="eyebrow">STAY ON TRACK</p><h2>Today's tasks</h2></div>
+                        <button class="text-button" data-goto="tasks">View all →</button>
+                    </div>
+                    <form class="task-form" id="taskForm">
+                        <input id="taskInput" type="text" placeholder="What needs to be done?" autocomplete="off">
+                        <button class="primary-button" type="submit">Add task +</button>
+                    </form>
+                    <ul class="task-list" id="taskList"></ul>
+                    <p class="empty-message" id="taskEmpty">Nothing on your list yet. Add a task to get started.</p>
+                </section>
+
+                <section class="panel progress-panel">
+                    <div class="section-heading"><div><p class="eyebrow">A LITTLE EVERY DAY</p><h2>Daily progress</h2></div></div>
+                    <div class="progress-ring" id="progressRing">
+                        <div><strong id="progressPercent">0%</strong><span>completed</span></div>
+                    </div>
+                    <p class="progress-message" id="progressMessage">Start with one small task.</p>
+                    <div class="progress-details">
+                        <span>Completed</span><strong id="progressDetail">0 of 0 tasks</strong>
+                    </div>
+                </section>
+            </div>
+
+            <section class="panel lower-panel">
+                <div class="section-heading">
+                    <div><p class="eyebrow">KEEP AN EYE ON</p><h2>Upcoming exams</h2></div>
+                    <button class="text-button" data-goto="exams">Manage exams →</button>
+                </div>
+                <div id="dashboardExams" class="exam-preview"></div>
+                <p class="empty-message" id="examEmpty">No exams added yet.</p>
+            </section>
+        </section>
+
+        <!-- TASKS -->
+        <section class="page" id="tasks">
+            <section class="panel">
+                <div class="section-heading"><div><p class="eyebrow">YOUR WORKLOAD</p><h2>My tasks</h2></div></div>
+                <form class="task-form" id="taskFormFull">
+                    <input id="taskInputFull" type="text" placeholder="Add a new task..." autocomplete="off">
+                    <button class="primary-button" type="submit">Add task +</button>
+                </form>
+                <div class="filter-row">
+                    <button class="filter-button active" data-filter="all">All</button>
+                    <button class="filter-button" data-filter="active">To do</button>
+                    <button class="filter-button" data-filter="completed">Completed</button>
+                </div>
+                <ul class="task-list full-task-list" id="fullTaskList"></ul>
+                <p class="empty-message" id="fullTaskEmpty">No tasks here yet.</p>
+            </section>
+        </section>
+
+        <!-- PLANNER -->
+        <section class="page" id="planner">
+            <section class="panel">
+                <div class="section-heading"><div><p class="eyebrow">ORGANISE YOUR DAY</p><h2>Study planner</h2></div></div>
+                <form class="form-grid" id="plannerForm">
+                    <label>Study session<input id="planTitle" type="text" placeholder="e.g. Data Structures revision" required></label>
+                    <label>Date<input id="planDate" type="date" required></label>
+                    <label>Time<input id="planTime" type="time" required></label>
+                    <button class="primary-button" type="submit">Add to planner +</button>
+                </form>
+                <div class="item-list" id="plannerList"></div>
+                <p class="empty-message" id="plannerEmpty">Your study schedule is empty.</p>
+            </section>
+        </section>
+
+        <!-- EXAMS -->
+        <section class="page" id="exams">
+            <section class="panel">
+                <div class="section-heading"><div><p class="eyebrow">PREPARE AHEAD</p><h2>Exam tracker</h2></div></div>
+                <form class="form-grid" id="examForm">
+                    <label>Subject<input id="examSubject" type="text" placeholder="e.g. Data Structures" required></label>
+                    <label>Exam date<input id="examDate" type="date" required></label>
+                    <button class="primary-button" type="submit">Add exam +</button>
+                </form>
+                <div class="item-list" id="examList"></div>
+                <p class="empty-message" id="examPageEmpty">No exams added yet.</p>
+            </section>
+        </section>
+
+        <!-- FOCUS TIMER -->
+        <section class="page" id="focus">
+            <section class="panel focus-panel">
+                <p class="eyebrow">FIND YOUR FLOW</p>
+                <h2>Focus on what matters.</h2>
+                <p class="subtitle">One session at a time. Take your time.</p>
+                <div class="timer" id="timerDisplay">25:00</div>
+                <div class="timer-presets">
+                    <button class="filter-button active" data-minutes="25">25 min</button>
+                    <button class="filter-button" data-minutes="45">45 min</button>
+                    <button class="filter-button" data-minutes="60">60 min</button>
+                </div>
+                <div class="timer-controls">
+                    <button class="primary-button" id="timerStart">Start</button>
+                    <button class="secondary-button" id="timerReset">Reset</button>
+                </div>
+                <p class="timer-note" id="timerStatus">Ready when you are.</p>
+            </section>
+        </section>
+
+        <!-- ANALYTICS -->
+        <section class="page" id="analytics">
+            <div class="stats-grid">
+                <article class="stat-card"><div class="stat-top"><span>Total tasks</span><span class="stat-icon">☷</span></div><h2 id="analyticsTotal">0</h2></article>
+                <article class="stat-card"><div class="stat-top"><span>Completed</span><span class="stat-icon">✓</span></div><h2 id="analyticsCompleted">0</h2></article>
+                <article class="stat-card"><div class="stat-top"><span>Focus sessions</span><span class="stat-icon">◷</span></div><h2 id="analyticsFocus">0</h2></article>
+            </div>
+            <section class="panel">
+                <div class="section-heading"><div><p class="eyebrow">YOUR PROGRESS</p><h2>Task completion</h2></div></div>
+                <div class="analytics-bar"><div id="analyticsBar"></div></div>
+                <p class="progress-message" id="analyticsMessage">Add tasks to start tracking your progress.</p>
+            </section>
+        </section>
+
+        <!-- SETTINGS -->
+        <section class="page" id="settings">
+            <section class="panel">
+                <div class="section-heading"><div><p class="eyebrow">MAKE IT YOURS</p><h2>Settings</h2></div></div>
+                <div class="setting-row">
+                    <div><strong>StudySpace</strong><p>Your personal study dashboard.</p></div>
+                    <span class="setting-tag">Dark brown theme</span>
+                </div>
+                <div class="setting-row">
+                    <div><strong>Clear saved data</strong><p>Delete your tasks, planner entries, exams and focus count from this browser.</p></div>
+                    <button class="danger-button" id="clearData">Clear data</button>
+                </div>
+            </section>
+        </section>
+    </main>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
